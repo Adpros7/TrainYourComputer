@@ -5,6 +5,7 @@ description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.13"
 dependencies = [
+    "pydantic>=2.13.4",
     "pynput>=1.8.2",
     "stopwatch-py>=2.0.1",
 ]
