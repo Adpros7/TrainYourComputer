@@ -4,3 +4,6 @@ from pynput.keyboard import Controller as KeyboardController
 
 mouse = MouseController()
 keyboard = KeyboardController()
+
+sleep(1)
+mouse.scroll

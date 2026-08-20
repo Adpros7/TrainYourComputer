@@ -1,3 +1,4 @@
 pynput
 stopwatch.py
 pydantic
+pyperclip
