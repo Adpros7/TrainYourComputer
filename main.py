@@ -10,10 +10,6 @@ watch = Stopwatch()
 watch.start()
 
 
-class EventType(BaseModel):
-    type: Literal["Key", "MouseButton", "MouseScroll", "MouseMove", "Time"]
-
-
 class Event(BaseModel):
     type: Literal["Key", "MouseButton", "MouseScroll", "MouseMove", "Time"]
     info: dict = {}
@@ -72,8 +68,7 @@ while (
     len([
         event
         for event in events[-20:]
-        if event.type == "Key"
-        and event.info["key"] == "esc"
+        if event.type == "Key" and event.info["key"] == "esc"
     ])
     != 10
 ):
