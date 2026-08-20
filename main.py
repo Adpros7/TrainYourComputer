@@ -1,7 +1,6 @@
-from pathlib import Path
 from pydantic import BaseModel
 from pynput.keyboard._base import Listener
-from typing import Literal, Optional
+from typing import Literal, Optional  # pyright: ignore[reportDeprecated]
 from pynput.keyboard import Listener as KeyboardListener
 from pynput.mouse import Listener as MouseListener
 from stopwatch import Stopwatch
@@ -52,7 +51,7 @@ keyListen.start()
 mouseListen = MouseListener(on_click=log_click, on_scroll=log_scroll, on_move=log_move)
 mouseListen.start()
 
-while len([event for event in events[-20:] if isinstance(event, tuple) and event[1].type == "Key" and event[0]["key"] == "esc"]) != 10:
+while len([event for event in events[-20:] if isinstance(event, tuple) and event.type == "Key" and event.info["key"] == "esc"]) != 10:
     pass
 
 keyListen.stop()
@@ -70,4 +69,4 @@ keyboard = KeyboardController()
 """
 
 for i in events:
-    if i[1].type == 
+    if i.type == ""
