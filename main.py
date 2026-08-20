@@ -62,6 +62,7 @@ def log_move(x, y):
 keyListen: Listener = KeyboardListener(on_press=log_press, on_release=log_release)
 mouseListen = MouseListener(on_click=log_click, on_scroll=log_scroll, on_move=log_move)
 
+
 def run():
     keyListen.start()
     mouseListen.start()
@@ -75,9 +76,9 @@ def run():
     ):
         pass
 
+
 if __name__ == "__main__":
     run()
-
 
     keyListen.stop()
     mouseListen.stop()
@@ -85,37 +86,40 @@ if __name__ == "__main__":
     print(events)
 
     template = """from time import sleep
-    from pynput.mouse import Controller as MouseController, Button
-    from pynput.keyboard import Controller as KeyboardController
+from pynput.mouse import Controller as MouseController, Button
+from pynput.keyboard import Controller as KeyboardController
+import os
 
-    mouse = MouseController()
-    keyboard = KeyboardController()
+mouse = MouseController()
+keyboard = KeyboardController()
 
+pos = mouse.position
 
-    """
+"""
 
     events = events[:-20]
 
     for i in events:
-        if i.type == "Time":
-            template += f"sleep({i.time})"
+        template += "\n"
 
-        if i.type == "Key":
+        if i.type == "Time":
+            template += f"sleep({i.time})\n"
+            template += "pos = mouse.position\n"
+            template += "if mouse.position != pos: os._exit(0)"
+
+        elif i.type == "Key":
             template += f"keyboard.{'press' if i.info['pressStatus'] == 'down' else 'release'}('{i.info['key']}')"
 
-        if i.type == "MouseButton":
-            template += (
-                f"mouse.{'press' if i.info['pressed'] else 'release'}({i.info['button']})"
-            )
+        elif i.type == "MouseButton":
+            template += f"mouse.{'press' if i.info['pressed'] else 'release'}({i.info['button']})"
 
-        if i.type == "MouseMove":
-            template += f"mouse.position = ({i.info['x'], i.info['y']})"
+        elif i.type == "MouseMove":
+            template += f"mouse.position = ({i.info['x'], i.info['y']})\n"
+            template += "pos = mouse.position"
 
-        if i.type == "MouseScroll":
+        elif i.type == "MouseScroll":
             template += f"mouse.position = ({i.info['x'], i.info['y']})\n"
             template += f"mouse.scroll({i.info['dx']}, {i.info['dy']})"
-
-        template += "\n"
 
     print(template)
     copy(template)
