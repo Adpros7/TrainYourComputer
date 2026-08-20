@@ -60,9 +60,10 @@ def log_move(x, y):
 
 
 keyListen: Listener = KeyboardListener(on_press=log_press, on_release=log_release)
-keyListen.start()
 mouseListen = MouseListener(on_click=log_click, on_scroll=log_scroll, on_move=log_move)
-mouseListen.start()
+def run():
+    keyListen.start()
+    mouseListen.start()
 
 while (
     len([
@@ -107,8 +108,8 @@ for i in events:
         template += f"mouse.position = ({i.info['x'], i.info['y']})"
 
     if i.type == "MouseScroll":
-        template += f"mouse.position = ({i.info['x'], i.info['y']})"
-        template += f"mouse.scroll({i.info['dx'], i.info['dy']})"
+        template += f"mouse.position = ({i.info['x'], i.info['y']})\n"
+        template += f"mouse.scroll({i.info['dx']}, {i.info['dy']})"
 
     template += "\n"
 
